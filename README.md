@@ -1,3 +1,9 @@
+> [!NOTE]
+> This repository is a fork of [iv-org/invidious](https://github.com/iv-org/invidious) that includes several changes not merged upstream. For example:
+> - Rounded corners for thumbnails ([commit d1d1dfb](https://github.com/perennialtech/invidious/commit/d1d1dfb573372204e7695d4788b1ffc413fb746f))
+
+---
+
 <div align="center">
   <img src="assets/invidious-colored-vector.svg" width="192" height="192" alt="Invidious logo">
   <h1>Invidious</h1>
