@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - "master"
-      - "redis-cache"
     paths-ignore:
       - "*.md"
       - LICENCE
