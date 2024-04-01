@@ -8,7 +8,9 @@ version: "3"
 services:
 
   invidious:
-    image: ghcr.io/perennialtech/invidious:latest
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     restart: unless-stopped
     ports:
       - "127.0.0.1:3000:3000"
