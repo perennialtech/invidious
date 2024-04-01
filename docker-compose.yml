@@ -31,6 +31,7 @@ services:
         # https_only: false
         # statistics_enabled: false
         hmac_key: "CHANGE_ME!!"
+        redis_url: redis://invidious-redis:6379
     healthcheck:
       test: wget -nv --tries=1 --spider http://127.0.0.1:3000/api/v1/comments/jNQXAC9IVRw || exit 1
       interval: 30s
@@ -53,5 +54,24 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
 
+  invidious-redis:
+    image: redis:7-alpine
+    container_name: invidious-redis
+    volumes:
+      - invidious-redis:/data
+    restart: unless-stopped
+    healthcheck:
+      test: redis-cli ping
+      interval: 30s
+      timeout: 5s
+      retries: 2
+    user: "999:1000"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
 volumes:
   postgresdata:
+  invidious-redis:
