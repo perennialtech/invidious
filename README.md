@@ -1,6 +1,7 @@
 > [!NOTE]
 > This repository is a fork of [iv-org/invidious](https://github.com/iv-org/invidious) that includes several changes not merged upstream. For example:
 > - Rounded corners for thumbnails ([commit d1d1dfb](https://github.com/perennialtech/invidious/commit/d1d1dfb573372204e7695d4788b1ffc413fb746f))
+> - Redis for video cache ([commit df5f9d5](https://github.com/perennialtech/invidious/commit/df5f9d5ea3d2b9548d44f10eab57e73de073e3e8)) ([src](https://github.com/yewtudotbe/invidious-custom/blob/master/patches/010-use-redis-for-video-cache.patch))
 
 ---
 
