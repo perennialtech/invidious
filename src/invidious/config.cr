@@ -74,6 +74,8 @@ class Config
   # Database configuration using 12-Factor "Database URL" syntax
   @[YAML::Field(converter: Preferences::URIConverter)]
   property database_url : URI = URI.parse("")
+  property redis_url : String?
+  property redis_socket : String?
   # Use polling to keep decryption function up to date
   property decrypt_polling : Bool = false
   # Used for crawling channels: threads should check all videos uploaded by a channel

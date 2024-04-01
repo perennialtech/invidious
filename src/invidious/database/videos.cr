@@ -10,7 +10,8 @@ module Invidious::Database::Videos
       ON CONFLICT (id) DO NOTHING
     SQL
 
-    PG_DB.exec(request, video.id, video.info.to_json, video.updated)
+    REDIS_DB.set(video.id, video.info.to_json, ex: 3600)
+    REDIS_DB.set(video.id + ":time", video.updated, ex: 3600)
   end
 
   def delete(id)
@@ -19,7 +20,8 @@ module Invidious::Database::Videos
       WHERE id = $1
     SQL
 
-    PG_DB.exec(request, id)
+    REDIS_DB.del(id)
+    REDIS_DB.del(id + ":time")
   end
 
   def delete_expired
@@ -47,6 +49,14 @@ module Invidious::Database::Videos
       WHERE id = $1
     SQL
 
-    return PG_DB.query_one?(request, id, as: Video)
+    if ((info = REDIS_DB.get(id)) && (time = REDIS_DB.get(id + ":time")))
+      return Video.new({
+        id:      id,
+        info:    JSON.parse(info).as_h,
+        updated: Time.parse(time, "%Y-%m-%d %H:%M:%S %z", Time::Location::UTC),
+      })
+    else
+      return nil
+    end
   end
 end
